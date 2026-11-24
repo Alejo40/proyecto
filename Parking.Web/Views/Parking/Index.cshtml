@@ -1,0 +1,16 @@
+@model List<Parking.Core.Domain.ParkingSession>
+<div class="container py-3">
+  @if (TempData["Error"] is string e) { <div class="alert alert-danger">@e</div> }
+  @if (TempData["Ok"] is string ok) { <div class="alert alert-success">Cobro: @ok</div> }
+  <form method="post" asp-action="Entry" class="row g-2 mb-3">
+    <div class="col-12 col-md-5"><input name="plate" class="form-control" placeholder="Placa" required /></div>
+    <div class="col-8 col-md-4"><select name="type" class="form-select" asp-items="Html.GetEnumSelectList<Parking.Core.Domain.VehicleType>()"></select></div>
+    <div class="col-4 col-md-3"><button class="btn btn-primary w-100">Entrada</button></div>
+  </form>
+  <div class="table-responsive"><table class="table table-striped">
+    <thead><tr><th>Placa</th><th>Tipo</th><th>Cupo</th><th>Entrada</th><th></th></tr></thead>
+    <tbody>@foreach (var s in Model) {
+      <tr><td>@s.Plate</td><td>@s.Type</td><td>@s.Slot?.Number</td><td>@s.EntryTime.ToString("g")</td>
+      <td><form method="post" asp-action="Exit"><input type="hidden" name="plate" value="@s.Plate"/><button class="btn btn-sm btn-danger">Salida</button></form></td></tr> }
+    </tbody></table></div>
+</div>

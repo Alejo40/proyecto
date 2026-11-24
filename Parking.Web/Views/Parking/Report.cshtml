@@ -1,0 +1,6 @@
+@model IEnumerable<DailyReport>
+<h4>Ingresos por día</h4>
+<div class="table-responsive"><table class="table table-striped">
+  <thead><tr><th>Día</th><th>Vehículos</th><th>Ingresos</th></tr></thead>
+  <tbody>@foreach (var r in Model) { <tr><td>@r.Day</td><td>@r.Vehicles</td><td>@r.Income.ToString("C0")</td></tr> }</tbody>
+</table></div>

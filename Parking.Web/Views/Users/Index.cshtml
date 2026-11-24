@@ -1,0 +1,13 @@
+@using Parking.Web.Controllers
+@model List<UserRow>
+<h4>Usuarios y roles</h4>
+@if (TempData["Error"] is string e) { <div class="alert alert-danger">@e</div> }
+<div class="table-responsive"><table class="table table-striped align-middle">
+  <thead><tr><th>Correo</th><th>Rol actual</th><th>Cambiar a</th></tr></thead>
+  <tbody>@foreach (var u in Model) {
+    <tr><td>@u.Email</td><td><span class="badge bg-secondary">@u.Role</span></td>
+    <td><form method="post" asp-action="SetRole" class="d-flex gap-2">
+      <input type="hidden" name="id" value="@u.Id" />
+      <select name="role" class="form-select form-select-sm w-auto"><option>Operador</option><option>Admin</option></select>
+      <button class="btn btn-sm btn-primary">Guardar</button></form></td></tr> }
+  </tbody></table></div>
